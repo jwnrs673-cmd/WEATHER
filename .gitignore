@@ -1,0 +1,9 @@
+# 取得した HTML のキャッシュ。再取得できるためコミットしない。
+data/raw/*
+!data/raw/.gitkeep
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/

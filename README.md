@@ -1,0 +1,160 @@
+# WEATHER — 都道府県別・月間気象概況レポート
+
+指定した月・都道府県について、**日別の気象概況レポート**を作成するツールです。
+降水量・気温・湿度・風速・日照時間などを日別の一覧表にまとめ、月間統計と
+県内の地域差を添えて Markdown と CSV で出力します。
+
+データは[気象庁「過去の気象データ検索」](https://www.data.jma.go.jp/obd/stats/etrn/index.php)から取得します。
+
+## できること
+
+- 県内の観測地点を**自動で探索**（観測所番号を手で調べる必要はありません）
+- 代表地点（地方気象台）の**日別一覧表** — 天気概況・降水量・気温・湿度・風速・日照
+- **月間サマリ** — 月平均気温、月降水量、真夏日・猛暑日・熱帯夜・降水日の日数
+- **県内クロス集計** — 日ごとに県内で最も降った／暑かった／風が強かった地点
+- **日別の概況コメント** — 観測値をしきい値で日本語に言い換え
+- 九州 7 県などの**まとめて実行**と、県をまたいだ一覧表
+
+## 必要なもの
+
+- Python 3.11 以上
+- 気象庁 (`www.data.jma.go.jp`) への HTTPS 接続
+
+```bash
+pip install -r requirements.txt
+```
+
+> **Claude Code のクラウド環境で動かす場合**
+> 既定の「Trusted」ネットワーク設定では気象庁のドメインが許可されておらず、
+> 取得が 403 で失敗します。環境設定で Network access を **Custom** にし、
+> Allowed domains に `*.jma.go.jp` を追加してください。このとき
+> **「Also include default list of common package managers」を必ずオン**に
+> しないと GitHub やパッケージ配布元まで遮断されます。設定は新しいセッションから
+> 反映されます。詳細は
+> [Configure cloud environments](https://code.claude.com/docs/en/cloud-environments) を参照。
+
+## 使い方
+
+```bash
+# 佐賀県の 2026 年 7 月
+python -m weather_report --pref 佐賀県 --month 2026-07
+
+# 九州 7 県をまとめて
+python -m weather_report --pref kyushu --month 2026-07
+
+# 複数県を指定
+python -m weather_report --pref 福岡県 熊本県 --month 2026-07
+
+# 地点を代表 3 地点に絞る（お試し実行に便利）
+python -m weather_report --pref 佐賀県 --month 2026-07 --max-stations 3
+```
+
+県名は「佐賀県」「佐賀」「saga」「41」のいずれでも指定できます。
+地方名は `kyushu`（7 県）と `kyushu-okinawa`（8 県）が使えます。
+
+### 主なオプション
+
+| オプション | 説明 |
+|---|---|
+| `--pref` | 対象の都道府県または地方（必須） |
+| `--month` | 対象年月。`2026-07` 形式（必須） |
+| `--refresh` | キャッシュを無視して取得し直す |
+| `--max-stations N` | 1 県あたりの地点数の上限。代表地点は必ず含まれる |
+| `--root PATH` | 出力先のルート（既定: リポジトリ直下） |
+| `--quiet` | 進捗ログを抑制 |
+
+## 出力
+
+```
+reports/2026-07/
+├── README.md              # 複数県を実行したときの一覧表
+├── 40_fukuoka/
+│   ├── report.md          # レポート本体
+│   └── daily.csv          # 全地点・全日の値
+├── 41_saga/
+│   ├── report.md
+│   └── daily.csv
+└── ...
+```
+
+レポートの構成は次のとおりです。
+
+1. 月間サマリ（代表地点の月間値／日数の集計／県内で最も顕著だった値）
+2. 特筆すべき日
+3. 日別一覧（代表地点）
+4. 日別の概況
+5. 県内各地点の日別値
+6. 県内クロス集計
+7. 注記
+
+### 出力の見本
+
+気象庁に接続できない状態でも、体裁だけは確認できます。
+
+```bash
+python scripts/demo_report.py   # reports/_sample/ に生成
+```
+
+> ⚠️ このスクリプトが作る数値は**すべて架空**です。気象の資料には使えません。
+
+## ディレクトリ構成
+
+```
+.
+├── config/stations/        # 県ごとの観測地点一覧（自動生成・編集可）
+├── data/raw/               # 取得した HTML のキャッシュ
+├── docs/data_source.md     # データ源の仕様・値記号・制約
+├── reports/                # 生成されたレポート
+├── scripts/demo_report.py  # 出力見本の生成
+├── src/weather_report/
+│   ├── prefectures.py      # 都道府県 ⇔ 気象庁の府県番号
+│   ├── stations.py         # 県内観測地点の探索
+│   ├── fetch_jma.py        # HTML 取得（キャッシュ・間隔制御）
+│   ├── parse_jma.py        # HTML → 日別値
+│   ├── aggregate.py        # 月間統計・県内集計
+│   ├── narrative.py        # 概況コメントの生成
+│   ├── render.py           # Markdown / CSV 出力
+│   ├── pipeline.py         # 一連の流れ
+│   └── cli.py              # コマンドライン
+└── tests/
+```
+
+## 対象地点を絞りたいとき
+
+初回実行時に `config/stations/41_saga.json` のような地点一覧が保存されます。
+不要な地点を削除すれば、次回以降はその一覧が使われます。
+
+```json
+{
+  "prefecture": "佐賀県",
+  "prec_no": 85,
+  "stations": [
+    { "block_no": "47813", "name": "佐賀", "kind": "s" },
+    { "block_no": "0851", "name": "伊万里", "kind": "a" }
+  ]
+}
+```
+
+`kind` の `s` は官署（地方気象台）、`a` はアメダスです。
+
+## 既知の制約
+
+- **湿度と天気概況は官署でのみ観測**されています。アメダス地点の表にこれらの
+  列はありません。多くの県で官署は 1〜3 か所です。
+- 月合計・月平均は欠測日を除いて算出しています。欠測がある地点では月降水量が
+  実際より小さくなることがあります。
+- 気象庁の統計値は後日修正されることがあります。
+- 日別値ページの**列構成は実ページで未検証**です。詳細と検証手順は
+  [docs/data_source.md](docs/data_source.md) を参照してください。
+
+## テスト
+
+```bash
+python -m pytest
+```
+
+## 出典とマナー
+
+- 出典: 気象庁「過去の気象データ検索」
+- リクエストは 1.5 秒以上の間隔を空けて送ります（`fetch_jma.REQUEST_INTERVAL`）
+- 取得した HTML は `data/raw/` にキャッシュされ、再実行時は再取得しません
