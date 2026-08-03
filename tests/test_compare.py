@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import collections
+import csv
 from datetime import date
 
 from weather_report import aggregate, compare, render_compare
@@ -250,10 +252,50 @@ class TestRender:
         previous = simple(2025, [30.0] * 31)
         result = compare.build(current, previous)
 
-        markdown_path, csv_path = render_compare.write_report(
+        markdown_path, csv_path, daily_csv_path = render_compare.write_report(
             tmp_path, resolve("佐賀県"), result
         )
         assert markdown_path.name == "compare_2025-07.md"
         assert csv_path.name == "compare_2025-07.csv"
+        assert daily_csv_path.name == "compare_2025-07_daily.csv"
         assert markdown_path.read_text(encoding="utf-8").startswith("# 佐賀県")
         assert "月降水量" in csv_path.read_text(encoding="utf-8")
+
+    def test_日別CSVに両年の値が入る(self, tmp_path):
+        # 県ごとの daily.csv は対象年しか持たないため、
+        # 前年の日別値はこのファイルにしか残らない
+        current = simple(2026, [28.0] * 31, [10.0] * 31)
+        previous = simple(2025, [30.0] * 31, [5.0] * 31)
+        result = compare.build(current, previous)
+
+        path = tmp_path / "daily.csv"
+        render_compare.write_daily_csv(path, result)
+        rows = list(csv.DictReader(path.open(encoding="utf-8-sig")))
+
+        years = collections.Counter(r["年"] for r in rows)
+        assert years == {"2026": 31, "2025": 31}
+        assert rows[0]["日付"] == "2026-07-01"
+        assert rows[0]["降水量合計(mm)"] == "10.0"
+        previous_rows = [r for r in rows if r["年"] == "2025"]
+        assert previous_rows[0]["降水量合計(mm)"] == "5.0"
+        # 暦日で突き合わせられるよう日の列を持つ
+        assert previous_rows[0]["日"] == "1"
+
+    def test_日別CSVは比較から外れた地点も残す(self, tmp_path):
+        current = summary(
+            2026,
+            {
+                SAGA: [record(2026, 1, temp_mean=28.0)],
+                IMARI: [record(2026, 1, IMARI, temp_mean=27.0)],
+            },
+        )
+        previous = summary(2025, {SAGA: [record(2025, 1, temp_mean=30.0)]})
+        result = compare.build(current, previous)
+
+        path = tmp_path / "daily.csv"
+        render_compare.write_daily_csv(path, result)
+        rows = list(csv.DictReader(path.open(encoding="utf-8-sig")))
+
+        # 伊万里は前年に対応がなく比較表からは外れるが、観測値は残す
+        assert [c.station.block_no for c in result.stations] == ["47813"]
+        assert "伊万里" in {r["地点"] for r in rows}

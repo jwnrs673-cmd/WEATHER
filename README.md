@@ -118,12 +118,17 @@ reports/2026-07/
 │   ├── report.md          # レポート本体
 │   └── daily.csv          # 全地点・全日の値
 ├── 41_saga/
-│   ├── report.md            # レポート本体
-│   ├── daily.csv
-│   ├── compare_2025-07.md   # --previous-year を付けたときだけ
-│   └── compare_2025-07.csv
+│   ├── report.md                  # レポート本体
+│   ├── daily.csv                  # 対象年の全地点・全日の値
+│   ├── compare_2025-07.md         # --previous-year を付けたときだけ
+│   ├── compare_2025-07.csv        # 月間値・旬別の比較
+│   └── compare_2025-07_daily.csv  # 両年の日別値
 └── ...
 ```
+
+`daily.csv` は**対象年しか含みません**。比較対象年の日別値は
+`compare_{年月}_daily.csv` に入ります。`年` と `日` の列があるので、
+表計算では 2 年分を同じ暦日で突き合わせられます。
 
 レポートの構成は次のとおりです。
 

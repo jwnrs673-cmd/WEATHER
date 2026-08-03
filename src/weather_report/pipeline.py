@@ -129,8 +129,10 @@ def _write_comparison(
         return
 
     comparison = compare.build(current, previous)
-    markdown_path, csv_path = render_compare.write_report(output_dir, pref, comparison)
-    logger.info("比較出力: %s / %s", markdown_path, csv_path)
+    markdown_path, csv_path, daily_csv_path = render_compare.write_report(
+        output_dir, pref, comparison
+    )
+    logger.info("比較出力: %s / %s / %s", markdown_path, csv_path, daily_csv_path)
 
 
 def run(

@@ -13,6 +13,7 @@ from pathlib import Path
 
 from . import summary_text
 from .compare import Delta, Metric, YearComparison, compare_extremes
+from .models import FIELD_LABELS, VALUE_FIELDS
 from .prefectures import Prefecture
 from .render import SOURCE_NAME, SOURCE_URL, _num, _table, _text
 
@@ -470,14 +471,53 @@ def write_csv(path: Path, comparison: YearComparison) -> None:
                 )
 
 
+def write_daily_csv(path: Path, comparison: YearComparison) -> None:
+    """両年の日別値を 1 枚の CSV にまとめる。
+
+    県ごとの ``daily.csv`` は対象年しか持たないため、比較対象年の日別値は
+    このファイルにしか残らない。表計算で 2 年分を並べられるよう、``年`` と
+    ``日`` の列を足して同じ暦日どうしを突き合わせやすくしている。
+
+    地点は両年に共通するものに限らず、取得できたものをすべて出す。
+    比較表から外れた地点でも観測値そのものは失いたくないため。
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    header = ["年", "地点", "観測所番号", "種別", "日付", "日", "曜日"]
+    header += [FIELD_LABELS.get(f, f) for f in VALUE_FIELDS]
+    header += ["flags"]
+
+    with path.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(header)
+        for result in (comparison.current, comparison.previous):
+            for station, records in result.by_station.items():
+                for record in records:
+                    row: list[object] = [
+                        result.year,
+                        station.name,
+                        station.block_no,
+                        "官署" if station.is_official else "アメダス",
+                        record.day.isoformat(),
+                        record.day.day,
+                        record.weekday_ja,
+                    ]
+                    row += [getattr(record, f) for f in VALUE_FIELDS]
+                    row.append(
+                        ";".join(f"{k}={v}" for k, v in sorted(record.flags.items()))
+                    )
+                    writer.writerow(["" if v is None else v for v in row])
+
+
 def write_report(
     output_dir: Path, pref: Prefecture, comparison: YearComparison
-) -> tuple[Path, Path]:
-    """Markdown と CSV を書き出し、そのパスを返す。"""
+) -> tuple[Path, Path, Path]:
+    """Markdown と CSV 2 種を書き出し、そのパスを返す。"""
     output_dir.mkdir(parents=True, exist_ok=True)
     stem = f"compare_{comparison.previous.year}-{comparison.previous.month:02d}"
     markdown_path = output_dir / f"{stem}.md"
     csv_path = output_dir / f"{stem}.csv"
+    daily_csv_path = output_dir / f"{stem}_daily.csv"
     markdown_path.write_text(render_markdown(pref, comparison), encoding="utf-8")
     write_csv(csv_path, comparison)
-    return markdown_path, csv_path
+    write_daily_csv(daily_csv_path, comparison)
+    return markdown_path, csv_path, daily_csv_path
