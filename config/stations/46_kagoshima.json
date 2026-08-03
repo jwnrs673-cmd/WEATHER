@@ -1,0 +1,267 @@
+{
+  "prefecture": "鹿児島県",
+  "prec_no": 88,
+  "_comment": "気象庁の府県地図ページから自動取得した観測地点。kind の s は官署（湿度・天気概況あり）、a はアメダス。対象地点を絞りたい場合はこのファイルから項目を削除してください。",
+  "stations": [
+    {
+      "block_no": "47823",
+      "name": "アクネ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47942",
+      "name": "オキノエラブ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47827",
+      "name": "カゴシマ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47837",
+      "name": "タネガシマ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47909",
+      "name": "ナゼ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47831",
+      "name": "マクラザキ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47836",
+      "name": "ヤクシマ",
+      "kind": "s"
+    },
+    {
+      "block_no": "1542",
+      "name": "アマギ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0934",
+      "name": "イズミ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1139",
+      "name": "イセン",
+      "kind": "a"
+    },
+    {
+      "block_no": "0893",
+      "name": "イブスキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0876",
+      "name": "ウオノゴエ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0895",
+      "name": "ウチノウラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0875",
+      "name": "オオクチ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1149",
+      "name": "オオスミ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0899",
+      "name": "オノアイダ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1520",
+      "name": "カサリ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0887",
+      "name": "カセダ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0937",
+      "name": "カノヤ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0898",
+      "name": "カミナカ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0890",
+      "name": "キイレ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1296",
+      "name": "キカイジマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1146",
+      "name": "キホク",
+      "kind": "a"
+    },
+    {
+      "block_no": "0891",
+      "name": "キモツキガワ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1181",
+      "name": "キモツキマエダ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1625",
+      "name": "キリシママキゾノ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1655",
+      "name": "コダカラジマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0980",
+      "name": "コニヤ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0874",
+      "name": "コハルノ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0884",
+      "name": "ゴンゲンガオ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1161",
+      "name": "サタ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0878",
+      "name": "サツマカシワバル",
+      "kind": "a"
+    },
+    {
+      "block_no": "0877",
+      "name": "シビサン",
+      "kind": "a"
+    },
+    {
+      "block_no": "0936",
+      "name": "シブシ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1654",
+      "name": "スワノセジマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0880",
+      "name": "センダイ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1658",
+      "name": "タイラジマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0886",
+      "name": "タカトウゲ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1647",
+      "name": "タカラジマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1136",
+      "name": "タシロ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0879",
+      "name": "ナカコシキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0897",
+      "name": "ナカタネ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1540",
+      "name": "ナカノシマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0883",
+      "name": "ヒガシイチキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0894",
+      "name": "ホヨシダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0935",
+      "name": "マキノハラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0881",
+      "name": "ミゾベ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0882",
+      "name": "ヤエヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1104",
+      "name": "ヤドメダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0888",
+      "name": "ヨシガベップ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1277",
+      "name": "ヨロンジマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "00",
+      "name": "鹿児島県全地点",
+      "kind": "a"
+    }
+  ]
+}

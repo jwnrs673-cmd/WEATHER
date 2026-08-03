@@ -1,0 +1,137 @@
+{
+  "prefecture": "福岡県",
+  "prec_no": 82,
+  "_comment": "気象庁の府県地図ページから自動取得した観測地点。kind の s は官署（湿度・天気概況あり）、a はアメダス。対象地点を絞りたい場合はこのファイルから項目を削除してください。",
+  "stations": [
+    {
+      "block_no": "47809",
+      "name": "イイヅカ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47807",
+      "name": "フクオカ",
+      "kind": "s"
+    },
+    {
+      "block_no": "0788",
+      "name": "アサクラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0793",
+      "name": "オオムタ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1657",
+      "name": "オロノシマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0944",
+      "name": "カグメヨシ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1590",
+      "name": "クウコウキタマチ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0787",
+      "name": "クセンブヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0790",
+      "name": "クルメ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0792",
+      "name": "クロギ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0781",
+      "name": "コクラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0783",
+      "name": "ササグリ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1611",
+      "name": "サワラワキヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1046",
+      "name": "ソエダ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1527",
+      "name": "ソネ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1141",
+      "name": "ダザイフ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1477",
+      "name": "ハカタ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1637",
+      "name": "ヒガシタニ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0789",
+      "name": "ヒコサン",
+      "kind": "a"
+    },
+    {
+      "block_no": "0785",
+      "name": "マエバル",
+      "kind": "a"
+    },
+    {
+      "block_no": "0791",
+      "name": "ミノウサン",
+      "kind": "a"
+    },
+    {
+      "block_no": "0943",
+      "name": "ムナカタ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0945",
+      "name": "ヤナガワ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0780",
+      "name": "ヤハタ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0782",
+      "name": "ユクハシ",
+      "kind": "a"
+    },
+    {
+      "block_no": "00",
+      "name": "福岡県全地点",
+      "kind": "a"
+    }
+  ]
+}

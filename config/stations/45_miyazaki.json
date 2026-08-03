@@ -1,0 +1,197 @@
+{
+  "prefecture": "宮崎県",
+  "prec_no": 87,
+  "_comment": "気象庁の府県地図ページから自動取得した観測地点。kind の s は官署（湿度・天気概況あり）、a はアメダス。対象地点を絞りたい場合はこのファイルから項目を削除してください。",
+  "stations": [
+    {
+      "block_no": "47835",
+      "name": "アブラツ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47822",
+      "name": "ノベオカ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47829",
+      "name": "ミヤコノジヨウ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47830",
+      "name": "ミヤザキ",
+      "kind": "s"
+    },
+    {
+      "block_no": "0868",
+      "name": "アオシマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1481",
+      "name": "アカエ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0856",
+      "name": "イノハラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0862",
+      "name": "エビノコウゲン",
+      "kind": "a"
+    },
+    {
+      "block_no": "0853",
+      "name": "オナコ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0860",
+      "name": "カクトウ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1433",
+      "name": "カミシイバ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1432",
+      "name": "キタカタ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0867",
+      "name": "キリシマミイケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0872",
+      "name": "クシマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0865",
+      "name": "クニトミ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1348",
+      "name": "クラオカ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0863",
+      "name": "コバヤシ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0861",
+      "name": "サイト",
+      "kind": "a"
+    },
+    {
+      "block_no": "1164",
+      "name": "サカタニ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1636",
+      "name": "シイバ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0852",
+      "name": "タカチホ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0859",
+      "name": "タカナベ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1623",
+      "name": "タカハル",
+      "kind": "a"
+    },
+    {
+      "block_no": "1663",
+      "name": "タノ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1608",
+      "name": "ツノ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0854",
+      "name": "ナカゴヤ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1345",
+      "name": "ニシメラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0864",
+      "name": "ノジリ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1609",
+      "name": "ヒノカゲ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0857",
+      "name": "ヒュウガ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1135",
+      "name": "フルエ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1353",
+      "name": "ミカド",
+      "kind": "a"
+    },
+    {
+      "block_no": "1275",
+      "name": "ミタテ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1343",
+      "name": "モロツカ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0858",
+      "name": "ヤビツダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1624",
+      "name": "ヤマダ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0870",
+      "name": "ワニツカヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "00",
+      "name": "宮崎県全地点",
+      "kind": "a"
+    }
+  ]
+}

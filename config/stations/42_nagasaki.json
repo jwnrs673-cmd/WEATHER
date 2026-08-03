@@ -1,0 +1,177 @@
+{
+  "prefecture": "長崎県",
+  "prec_no": 84,
+  "_comment": "気象庁の府県地図ページから自動取得した観測地点。kind の s は官署（湿度・天気概況あり）、a はアメダス。対象地点を絞りたい場合はこのファイルから項目を削除してください。",
+  "stations": [
+    {
+      "block_no": "47800",
+      "name": "イヅハラ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47818",
+      "name": "ウンゼンダケ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47812",
+      "name": "サセボ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47817",
+      "name": "ナガサキ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47805",
+      "name": "ヒラド",
+      "kind": "s"
+    },
+    {
+      "block_no": "47843",
+      "name": "フクエ",
+      "kind": "s"
+    },
+    {
+      "block_no": "1144",
+      "name": "アシベ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1080",
+      "name": "アリカワ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1138",
+      "name": "アリカワ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0820",
+      "name": "イサハヤ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1478",
+      "name": "イシダ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0817",
+      "name": "オオセト",
+      "kind": "a"
+    },
+    {
+      "block_no": "1084",
+      "name": "オオムラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1535",
+      "name": "オヂカ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1536",
+      "name": "カシラガシマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1479",
+      "name": "カミオオヅ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1676",
+      "name": "キヌガサヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0922",
+      "name": "クチノツ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0815",
+      "name": "クニミヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0819",
+      "name": "ゴカハラダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1672",
+      "name": "サイカイ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0811",
+      "name": "サスナ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0962",
+      "name": "シマバラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1452",
+      "name": "チヂワ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0818",
+      "name": "ナガウラダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1441",
+      "name": "ノモザキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1451",
+      "name": "ヒャッカダイ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1442",
+      "name": "フカエ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1446",
+      "name": "フゲンダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0814",
+      "name": "マツウラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1538",
+      "name": "ミツシマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1670",
+      "name": "ワキミサキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1453",
+      "name": "ワニウラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "00",
+      "name": "長崎県全地点",
+      "kind": "a"
+    }
+  ]
+}
