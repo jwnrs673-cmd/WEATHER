@@ -7,6 +7,9 @@
 
     # 九州 7 県まとめて
     python -m weather_report --pref kyushu --month 2026-07
+
+    # 佐賀県の 2026 年 7 月を前年同月と比較
+    python -m weather_report --pref 佐賀県 --month 2026-07 --previous-year
 """
 
 from __future__ import annotations
@@ -78,6 +81,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="1 県あたりの対象地点数の上限。代表地点は必ず含まれます。",
     )
     parser.add_argument(
+        "--compare-with",
+        type=_parse_month,
+        metavar="YYYY-MM",
+        help="比較対象の年月（例: 2025-07）。指定すると前年同月比のレポートを"
+        "追加で作成します。--previous-year と同時には指定できません。",
+    )
+    parser.add_argument(
+        "--previous-year",
+        action="store_true",
+        help="前年の同じ月と比較します。--compare-with 前年-同月 の短縮形です。",
+    )
+    parser.add_argument(
         "--quiet",
         action="store_true",
         help="進捗ログを抑制します。",
@@ -99,6 +114,20 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     year, month = args.month
+
+    if args.compare_with and args.previous_year:
+        print(
+            "--compare-with と --previous-year は同時に指定できません。",
+            file=sys.stderr,
+        )
+        return 2
+    compare_with = args.compare_with
+    if args.previous_year:
+        compare_with = (year - 1, month)
+    if compare_with == (year, month):
+        print("比較対象が対象月と同じです。別の年月を指定してください。", file=sys.stderr)
+        return 2
+
     if (year, month) >= (date.today().year, date.today().month):
         print(
             f"警告: {year}年{month}月はまだ終わっていないため、"
@@ -113,6 +142,7 @@ def main(argv: list[str] | None = None) -> int:
         Paths(args.root),
         refresh=args.refresh,
         max_stations=args.max_stations,
+        compare_with=compare_with,
     )
     if not results:
         print(

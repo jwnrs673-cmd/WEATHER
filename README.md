@@ -85,6 +85,12 @@ python -m weather_report --pref 福岡県 熊本県 --month 2026-07
 
 # 地点を代表 3 地点に絞る（お試し実行に便利）
 python -m weather_report --pref 佐賀県 --month 2026-07 --max-stations 3
+
+# 前年同月と比較する
+python -m weather_report --pref 佐賀県 --month 2026-07 --previous-year
+
+# 任意の月と比較する
+python -m weather_report --pref 佐賀県 --month 2026-07 --compare-with 2024-07
 ```
 
 県名は「佐賀県」「佐賀」「saga」「41」のいずれでも指定できます。
@@ -98,6 +104,8 @@ python -m weather_report --pref 佐賀県 --month 2026-07 --max-stations 3
 | `--month` | 対象年月。`2026-07` 形式（必須） |
 | `--refresh` | キャッシュを無視して取得し直す |
 | `--max-stations N` | 1 県あたりの地点数の上限。代表地点は必ず含まれる |
+| `--previous-year` | 前年の同じ月と比較したレポートも作る |
+| `--compare-with YYYY-MM` | 指定した年月と比較したレポートも作る |
 | `--root PATH` | 出力先のルート（既定: リポジトリ直下） |
 | `--quiet` | 進捗ログを抑制 |
 
@@ -110,8 +118,10 @@ reports/2026-07/
 │   ├── report.md          # レポート本体
 │   └── daily.csv          # 全地点・全日の値
 ├── 41_saga/
-│   ├── report.md
-│   └── daily.csv
+│   ├── report.md            # レポート本体
+│   ├── daily.csv
+│   ├── compare_2025-07.md   # --previous-year を付けたときだけ
+│   └── compare_2025-07.csv
 └── ...
 ```
 
@@ -124,6 +134,24 @@ reports/2026-07/
 5. 県内各地点の日別値
 6. 県内クロス集計
 7. 注記
+
+### 比較レポート
+
+`--previous-year` または `--compare-with` を付けると、比較対象の月も取得して
+`compare_{年月}.md` を追加で出力します。構成は次のとおりです。
+
+1. 要点（差が大きい項目だけを文章化）
+2. 月間値の比較／日数の比較
+3. 旬別の比較（上旬・中旬・下旬）
+4. 県内の極値の比較
+5. 地点別の比較
+6. 日別対照表（暦日でそろえた 2 年分）
+7. 注記
+
+> **これは平年値との比較ではありません。**
+> 特定の 1 年との差は年々変動の範囲に収まることが多く、気候の傾向を示すものでは
+> ありません。平年偏差を見たい場合は気象庁の平年値（1991〜2020 年平均）と比較して
+> ください。
 
 ### 出力の見本
 
