@@ -192,6 +192,40 @@ class TestRender:
         )
         assert "高い" in render_compare._headline(clear)
 
+    def test_天気概況を2年分並べる(self):
+        current = summary(
+            2026,
+            {SAGA: [record(2026, 1, weather_day="大雨", weather_night="曇")]},
+        )
+        previous = summary(
+            2025,
+            {SAGA: [record(2025, 1, weather_day="晴", weather_night="快晴")]},
+        )
+        result = compare.build(current, previous)
+        text = render_compare._weather_text_section(result)
+
+        assert "| 1 | 大雨 | 曇 | 晴 | 快晴 |" in text
+        assert "2026 昼" in text and "2025 夜" in text
+
+    def test_片方の年に観測がない日は空欄にする(self):
+        current = summary(2026, {SAGA: [record(2026, 1, weather_day="大雨")]})
+        previous = summary(2025, {SAGA: [record(2025, 2, weather_day="晴")]})
+        result = compare.build(current, previous)
+        text = render_compare._weather_text_section(result)
+
+        assert "| 1 | 大雨 | -- | -- | -- |" in text
+        assert "| 2 | -- | -- | 晴 | -- |" in text
+
+    def test_アメダスなら天気概況の表を出さない(self):
+        # 天気概況は官署でのみ観測している
+        current = summary(2026, {IMARI: [record(2026, 1, IMARI, temp_mean=28.0)]})
+        previous = summary(2025, {IMARI: [record(2025, 1, IMARI, temp_mean=30.0)]})
+        result = compare.build(current, previous)
+        text = render_compare._weather_text_section(result)
+
+        assert "アメダス" in text
+        assert "|" not in text
+
     def test_マークダウンが主要な見出しを含む(self):
         current = simple(2026, [28.0] * 31, [10.0] * 31)
         previous = simple(2025, [30.0] * 31, [5.0] * 31)
@@ -199,7 +233,13 @@ class TestRender:
         text = render_compare.render_markdown(resolve("佐賀県"), result)
 
         assert "# 佐賀県 2026年7月 気象概況（2025年7月との比較）" in text
-        for heading in ("## 1. 要点", "## 3. 旬別の比較", "## 6. 日別対照表", "## 7. 注記"):
+        for heading in (
+            "## 1. 要点",
+            "## 3. 旬別の比較",
+            "## 6. 日別対照表",
+            "## 7. 日別の天気概況",
+            "## 8. 注記",
+        ):
             assert heading in text
         # 平年値との違いは必ず断る
         assert "平年値との比較ではなく" in text

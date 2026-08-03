@@ -13,7 +13,7 @@ from pathlib import Path
 
 from .compare import Delta, Metric, YearComparison, compare_extremes
 from .prefectures import Prefecture
-from .render import SOURCE_NAME, SOURCE_URL, _num, _table
+from .render import SOURCE_NAME, SOURCE_URL, _num, _table, _text
 
 _WEEKDAY = ("月", "火", "水", "木", "金", "土", "日")
 
@@ -145,6 +145,38 @@ def _daily_section(comparison: YearComparison) -> str:
     return _table(header, rows)
 
 
+def _weather_text_section(comparison: YearComparison) -> str:
+    """日別の天気概況を 2 年分並べる。
+
+    天気概況は**官署でのみ観測**しているため、代表地点がアメダスのときは
+    表の代わりに理由を出す。
+    """
+    if not comparison.current.representative.is_official:
+        return (
+            "代表地点がアメダスのため、天気概況の観測がありません。"
+            "（天気概況は官署でのみ観測しています。）"
+        )
+
+    rows = [
+        [
+            str(pair.day_of_month),
+            _text(pair.current.weather_day if pair.current else None),
+            _text(pair.current.weather_night if pair.current else None),
+            _text(pair.previous.weather_day if pair.previous else None),
+            _text(pair.previous.weather_night if pair.previous else None),
+        ]
+        for pair in comparison.daily_pairs
+    ]
+    header = [
+        "日",
+        f"{comparison.current.year} 昼",
+        f"{comparison.current.year} 夜",
+        f"{comparison.previous.year} 昼",
+        f"{comparison.previous.year} 夜",
+    ]
+    return _table(header, rows)
+
+
 def _station_section(comparison: YearComparison) -> str:
     """両年に共通する地点の月間値を並べる。"""
     rows: list[list[str]] = []
@@ -266,7 +298,9 @@ def _notes_section(comparison: YearComparison) -> str:
         "- 月降水量・月間日照時間は**欠測日を除いた合計**です。片方の年だけ欠測が"
         f"多いと差が過大に出ます。有効観測日数が暦日数の 90% を下回る項目には"
         "「〔要注意〕」を付けています。",
-        "- 日別対照表は**暦日**でそろえています。曜日は年によって異なります。",
+        "- 日別対照表と天気概況は**暦日**でそろえています。曜日は年によって異なります。",
+        "- **天気概況は官署（地方気象台）でのみ観測**しています。アメダスにはありません。"
+        "また観測値ではなく観測者による記述のため、年による表現のゆれがありえます。",
         "- 「熱帯夜」は日最低気温 25℃ 以上で近似しています。",
         "- 統計値は後日修正されることがあります。取得時点の値です。",
     ]
@@ -319,7 +353,9 @@ def render_markdown(pref: Prefecture, comparison: YearComparison) -> str:
         _station_section(comparison),
         f"## 6. 日別対照表（{station.name}）",
         _daily_section(comparison),
-        "## 7. 注記",
+        f"## 7. 日別の天気概況（{station.name}）",
+        _weather_text_section(comparison),
+        "## 8. 注記",
         _notes_section(comparison),
     ]
     return "\n\n".join(sections) + "\n"
