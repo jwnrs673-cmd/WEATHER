@@ -11,6 +11,7 @@ import csv
 from datetime import datetime
 from pathlib import Path
 
+from . import summary_text
 from .compare import Delta, Metric, YearComparison, compare_extremes
 from .prefectures import Prefecture
 from .render import SOURCE_NAME, SOURCE_URL, _num, _table, _text
@@ -143,6 +144,48 @@ def _daily_section(comparison: YearComparison) -> str:
         "差<br>(mm)",
     ]
     return _table(header, rows)
+
+
+def _climate_summary_section(comparison: YearComparison) -> str:
+    """両年について「どんな月だったか」を文章で述べる。
+
+    数値表とは別に、月内のどこで天気が切り替わったかを追えるようにする。
+    """
+    station = comparison.current.representative
+    blocks: list[str] = []
+
+    for label, result, spells in (
+        (comparison.label_current, comparison.current, comparison.current_spells),
+        (comparison.label_previous, comparison.previous, comparison.previous_spells),
+    ):
+        overview = summary_text.overview(
+            station, result.representative_summary, spells, result.year, result.month
+        )
+        spell_lines = "\n".join(
+            f"- {summary_text.describe_spell(spell)}" for spell in spells
+        )
+        blocks.append(
+            "\n\n".join([f"### {label}", overview, spell_lines])
+            if spell_lines
+            else "\n\n".join([f"### {label}", overview])
+        )
+
+    blocks.append(
+        "\n\n".join(
+            [
+                "### 二つの月の違い",
+                summary_text.contrast(
+                    comparison.current_spells,
+                    comparison.previous_spells,
+                    comparison.current.representative_summary,
+                    comparison.previous.representative_summary,
+                    comparison.current.year,
+                    comparison.previous.year,
+                ),
+            ]
+        )
+    )
+    return "\n\n".join(blocks)
 
 
 def _weather_text_section(comparison: YearComparison) -> str:
@@ -339,23 +382,28 @@ def render_markdown(pref: Prefecture, comparison: YearComparison) -> str:
         ),
         "## 1. 要点",
         _summary_narrative(comparison),
-        f"## 2. 月間値の比較（{station.name}）",
+        f"## 2. どんな月だったか（{station.name}）",
+        "降水があった日となかった日で月を区切り、期間ごとの性格を述べます。"
+        "区切りは日降水量 1mm を境にした便宜的なもので、"
+        "気象庁の梅雨入り・梅雨明けの発表とは関係ありません。",
+        _climate_summary_section(comparison),
+        f"## 3. 月間値の比較（{station.name}）",
         _overview_section(comparison),
         "### 日数の比較",
         _day_count_section(comparison),
-        "## 3. 旬別の比較",
+        "## 4. 旬別の比較",
         "月合計だけでは月内のどこで差がついたかが分かりません。"
         "上旬・中旬・下旬に分けて示します。",
         _segment_section(comparison),
-        "## 4. 県内の極値の比較",
+        "## 5. 県内の極値の比較",
         _extremes_section(comparison),
-        "## 5. 地点別の比較",
+        "## 6. 地点別の比較",
         _station_section(comparison),
-        f"## 6. 日別対照表（{station.name}）",
+        f"## 7. 日別対照表（{station.name}）",
         _daily_section(comparison),
-        f"## 7. 日別の天気概況（{station.name}）",
+        f"## 8. 日別の天気概況（{station.name}）",
         _weather_text_section(comparison),
-        "## 8. 注記",
+        "## 9. 注記",
         _notes_section(comparison),
     ]
     return "\n\n".join(sections) + "\n"

@@ -14,6 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
 
+from . import spells as spells_mod
 from .aggregate import Extreme, MonthlySummary, PrefectureSummary
 from .models import DailyRecord, Station
 
@@ -147,6 +148,10 @@ class YearComparison:
     segments: list[SegmentComparison]
     daily_pairs: list[DailyPair]
     stations: list[StationComparison]
+    current_spells: list[spells_mod.Spell]
+    """当年の代表地点を雨天期・乾燥期に区切ったもの。"""
+    previous_spells: list[spells_mod.Spell]
+    """比較対象年の同じもの。"""
 
     @property
     def label_current(self) -> str:
@@ -440,4 +445,6 @@ def build(current: PrefectureSummary, previous: PrefectureSummary) -> YearCompar
             current.representative_records, previous.representative_records
         ),
         stations=_build_stations(current, previous),
+        current_spells=spells_mod.detect(current.representative_records),
+        previous_spells=spells_mod.detect(previous.representative_records),
     )
