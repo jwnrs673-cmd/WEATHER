@@ -37,11 +37,19 @@ def describe_spell(spell: Spell) -> str:
         if spell.heavy_rain_days:
             parts.append(f"大雨日 {spell.heavy_rain_days}日")
     else:
+        # 乾燥期でも単発の降水日は含まれうる。期間の定義は「雨が続かなかった」
+        # であって「降らなかった」ではないため、降った分は必ず示す。
         precip = spell.total("precip_total")
-        if precip:
-            parts.append(f"期間降水量 {_fmt(precip, 'mm')}（まとまった降水なし）")
-        else:
+        if not precip:
             parts.append("降水なし")
+        elif spell.rainy_days:
+            parts.append(
+                f"期間降水量 {_fmt(precip, 'mm')}"
+                f"（降水日 {spell.rainy_days}日、連続はせず）"
+            )
+        else:
+            # 降水日（1mm 以上）に届かない微少な降水しかない期間。
+            parts.append(f"期間降水量 {_fmt(precip, 'mm')}（いずれも 1mm 未満）")
         sunshine = spell.total("sunshine")
         if sunshine is not None:
             parts.append(f"日照 {_fmt(sunshine, '時間')}")
@@ -109,10 +117,17 @@ def overview(
             f"{_fmt(biggest_precip, 'mm')}（{share * 100:.0f}%）が"
             f"{biggest.label}に集中しています。"
         )
+    elif biggest is not None:
+        # 雨天期はあるが月降水量の主役ではない。単発の降水日が月内に散っている。
+        sentences.append(
+            f"降水は月内に分散し、最も降ったのは{biggest.label}の "
+            f"{_fmt(biggest_precip, 'mm')} で、月降水量 "
+            f"{_fmt(summary.precip_total, 'mm')} の {share * 100:.0f}% でした。"
+        )
     else:
         sentences.append(
-            "月を通してまとまった降水はなく、月降水量は "
-            f"{_fmt(summary.precip_total, 'mm')} にとどまりました。"
+            "雨が続いた期間はなく、月降水量は "
+            f"{_fmt(summary.precip_total, 'mm')} でした。"
         )
 
     # 暑さの側面。

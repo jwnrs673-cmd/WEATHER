@@ -167,7 +167,50 @@ class TestSummaryText:
         text = summary_text.overview(SAGA, summarize(SAGA, records), detected, 2026, 7)
 
         assert "集中" not in text
-        assert "まとまった降水はなく" in text
+        assert "分散" in text
+
+    def test_雨天期がなければ降水量をそのまま述べる(self):
+        records = series([0.0] * 31, temp_max=36.0)
+        detected = spells.detect(records)
+        text = summary_text.overview(SAGA, summarize(SAGA, records), detected, 2026, 7)
+
+        assert "雨が続いた期間はなく" in text
+
+    def test_単発の降水が散る月は集中と述べない(self):
+        # 1 日ずつの降水は雨天期に育たず乾燥期に吸収されるが、
+        # 月降水量としては無視できない量になりうる
+        precips: list[float | None] = [0.0] * 31
+        for day in (2, 6, 10, 14):
+            precips[day] = 30.0
+        records = series(precips, temp_max=34.0)
+        detected = spells.detect(records)
+        text = summary_text.overview(SAGA, summarize(SAGA, records), detected, 2026, 7)
+
+        assert "集中" not in text
+        assert "まとまった降水はなく" not in text
+        assert "120.0mm" in text
+
+    def test_1mm未満の微少な降水は降水日と数えない(self):
+        precips: list[float | None] = [0.0] * 15
+        precips[3] = 0.5
+        spell = spells.detect(series(precips, temp_max=34.0))[0]
+        text = summary_text.describe_spell(spell)
+
+        assert "いずれも 1mm 未満" in text
+        assert "降水日 0日" not in text
+
+    def test_乾燥期でも降った分は示す(self):
+        # 「雨が続かなかった」であって「降らなかった」ではない
+        precips: list[float | None] = [0.0] * 15
+        precips[3] = 40.0
+        records = series(precips, temp_max=34.0)
+        spell = spells.detect(records)[0]
+        text = summary_text.describe_spell(spell)
+
+        assert spell.kind == spells.DRY
+        assert "期間降水量 40.0mm" in text
+        assert "降水日 1日" in text
+        assert "まとまった降水なし" not in text
 
     def test_対比は雨天期の長さと降水量に触れる(self):
         current = series([60.0] * 6 + [0.0] * 25, temp_max=36.0)

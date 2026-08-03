@@ -105,6 +105,10 @@ class Spell:
         return sum(1 for r in self.records if r.is_tropical_night)
 
     @property
+    def rainy_days(self) -> int:
+        return sum(1 for r in self.records if r.is_rainy_day)
+
+    @property
     def heavy_rain_days(self) -> int:
         return sum(1 for r in self.records if r.is_heavy_rain_day)
 

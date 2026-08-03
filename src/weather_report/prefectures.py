@@ -42,6 +42,12 @@ class Prefecture:
         return f"{self.jis_code:02d}_{self.romaji}"
 
 
+#: 関東地方。必要になった県から順に足している（まだ地方全体は揃っていないため
+#: :data:`REGIONS` には登録していない）。
+KANTO: tuple[Prefecture, ...] = (
+    Prefecture(11, "埼玉県", "埼玉", "saitama", 43, "47626"),
+)
+
 #: 九州 7 県。``prec_no`` は気象庁の府県選択ページで使われている番号。
 KYUSHU: tuple[Prefecture, ...] = (
     Prefecture(40, "福岡県", "福岡", "fukuoka", 82, "47807"),
@@ -56,11 +62,15 @@ KYUSHU: tuple[Prefecture, ...] = (
 #: 沖縄県。「九州・沖縄地方」として扱いたいときに ``--region kyushu-okinawa`` で加わる。
 OKINAWA = Prefecture(47, "沖縄県", "沖縄", "okinawa", 91, "47936")
 
-ALL: tuple[Prefecture, ...] = KYUSHU + (OKINAWA,)
+#: 九州・沖縄地方の 8 県。
+KYUSHU_OKINAWA: tuple[Prefecture, ...] = KYUSHU + (OKINAWA,)
+
+#: 定義済みの全県。JIS コード順に並べ、出力ディレクトリが自然な順序になるようにする。
+ALL: tuple[Prefecture, ...] = KANTO + KYUSHU_OKINAWA
 
 REGIONS: dict[str, tuple[Prefecture, ...]] = {
     "kyushu": KYUSHU,
-    "kyushu-okinawa": ALL,
+    "kyushu-okinawa": KYUSHU_OKINAWA,
 }
 
 
