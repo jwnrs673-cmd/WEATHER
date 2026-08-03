@@ -1,0 +1,197 @@
+{
+  "prefecture": "熊本県",
+  "prec_no": 86,
+  "_comment": "気象庁の府県地図ページから自動取得した観測地点。kind の s は官署（湿度・天気概況あり）、a はアメダス。対象地点を絞りたい場合はこのファイルから項目を削除してください。",
+  "stations": [
+    {
+      "block_no": "47821",
+      "name": "アソサン",
+      "kind": "s"
+    },
+    {
+      "block_no": "47838",
+      "name": "ウシブカ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47819",
+      "name": "クマモト",
+      "kind": "s"
+    },
+    {
+      "block_no": "47824",
+      "name": "ヒトヨシ",
+      "kind": "s"
+    },
+    {
+      "block_no": "1240",
+      "name": "アソオトヒメ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0847",
+      "name": "イクサヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0850",
+      "name": "イチリヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1581",
+      "name": "イッショウチ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1368",
+      "name": "イツキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0926",
+      "name": "ウエ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1580",
+      "name": "ウト",
+      "kind": "a"
+    },
+    {
+      "block_no": "0832",
+      "name": "カホク",
+      "kind": "a"
+    },
+    {
+      "block_no": "0835",
+      "name": "キクチ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0836",
+      "name": "クラダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0842",
+      "name": "コウサ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1158",
+      "name": "ゴカノシヨウ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0851",
+      "name": "シラガダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0834",
+      "name": "タイメイ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0840",
+      "name": "タカモリ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0946",
+      "name": "タノウラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0925",
+      "name": "タラギ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0838",
+      "name": "タワラヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0844",
+      "name": "ダイキンポウ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1088",
+      "name": "チャウストウゲ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0845",
+      "name": "ホンド",
+      "kind": "a"
+    },
+    {
+      "block_no": "0923",
+      "name": "マシキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0843",
+      "name": "マツシマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0841",
+      "name": "マノタニヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1081",
+      "name": "ミスミ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0924",
+      "name": "ミナマタ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1660",
+      "name": "ミナミアソ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0833",
+      "name": "ミナミオグニ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1156",
+      "name": "ヤカタヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0846",
+      "name": "ヤツシロ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1435",
+      "name": "ヤマエ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1613",
+      "name": "ヤマト",
+      "kind": "a"
+    },
+    {
+      "block_no": "1086",
+      "name": "ユノマエヨコタニ",
+      "kind": "a"
+    },
+    {
+      "block_no": "00",
+      "name": "熊本県全地点",
+      "kind": "a"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "prefecture": "大分県",
+  "prec_no": 83,
+  "_comment": "気象庁の府県地図ページから自動取得した観測地点。kind の s は官署（湿度・天気概況あり）、a はアメダス。対象地点を絞りたい場合はこのファイルから項目を削除してください。",
+  "stations": [
+    {
+      "block_no": "47815",
+      "name": "オオイタ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47814",
+      "name": "ヒタ",
+      "kind": "s"
+    },
+    {
+      "block_no": "0807",
+      "name": "イズルハ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0805",
+      "name": "イヌカイ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0931",
+      "name": "インナイ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0933",
+      "name": "ウスキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1142",
+      "name": "ウメ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0810",
+      "name": "カマエ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1237",
+      "name": "キツキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0932",
+      "name": "クス",
+      "kind": "a"
+    },
+    {
+      "block_no": "1137",
+      "name": "クニミ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0809",
+      "name": "クラキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0808",
+      "name": "サイキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0801",
+      "name": "サガノセキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0802",
+      "name": "シャカダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0806",
+      "name": "タケタ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1554",
+      "name": "ツバキガハナ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0794",
+      "name": "ナカツ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0804",
+      "name": "ヌクミ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0797",
+      "name": "フシキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0795",
+      "name": "ブンゴタカダ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1157",
+      "name": "ベップ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0796",
+      "name": "ムサシ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0979",
+      "name": "ヤバケイ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0803",
+      "name": "ユノヒラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0799",
+      "name": "ユフイン",
+      "kind": "a"
+    },
+    {
+      "block_no": "00",
+      "name": "大分県全地点",
+      "kind": "a"
+    }
+  ]
+}

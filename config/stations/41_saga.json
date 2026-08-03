@@ -1,0 +1,82 @@
+{
+  "prefecture": "佐賀県",
+  "prec_no": 85,
+  "_comment": "気象庁の府県地図ページから自動取得した観測地点。kind の s は官署（湿度・天気概況あり）、a はアメダス。対象地点を絞りたい場合はこのファイルから項目を削除してください。",
+  "stations": [
+    {
+      "block_no": "47813",
+      "name": "サガ",
+      "kind": "s"
+    },
+    {
+      "block_no": "1075",
+      "name": "イマリ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0830",
+      "name": "ウレシノ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0824",
+      "name": "エザルギ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1667",
+      "name": "オオマチ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1610",
+      "name": "カラツ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1480",
+      "name": "カワソエ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0826",
+      "name": "ゴンゲンヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0829",
+      "name": "シロイシ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0831",
+      "name": "タラダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1612",
+      "name": "トス",
+      "kind": "a"
+    },
+    {
+      "block_no": "0827",
+      "name": "ハチマンダケ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1616",
+      "name": "ホクザン",
+      "kind": "a"
+    },
+    {
+      "block_no": "0825",
+      "name": "ワタダ",
+      "kind": "a"
+    },
+    {
+      "block_no": "00",
+      "name": "佐賀県全地点",
+      "kind": "a"
+    }
+  ]
+}
