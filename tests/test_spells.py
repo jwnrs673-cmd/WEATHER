@@ -161,13 +161,26 @@ class TestSummaryText:
         assert "集中しています" in text
 
     def test_降水が少ない月では集中と述べない(self):
-        # 月降水量そのものが小さいと「集中」は実態を表さない
+        # 月降水量そのものが小さいと「集中」は実態を表さない。
+        # ただし偏り自体は事実なので、割合は述べる。
         records = series([2.0] * 3 + [0.0] * 28, temp_max=36.0)
         detected = spells.detect(records)
         text = summary_text.overview(SAGA, summarize(SAGA, records), detected, 2026, 7)
 
         assert "集中" not in text
-        assert "分散" in text
+        assert "100%" in text
+        assert "降ったものです" in text
+        # 偏っているのに「分散」と述べてはいけない
+        assert "分散" not in text
+
+    def test_過半が1つの雨天期なら分散と述べない(self):
+        # 月降水量が多くなくても、偏っていれば「分散」は誤り
+        records = series([27.0] * 3 + [0.0] * 28, temp_max=34.0)
+        detected = spells.detect(records)
+        text = summary_text.overview(SAGA, summarize(SAGA, records), detected, 2026, 7)
+
+        assert "分散" not in text
+        assert "100%" in text
 
     def test_雨天期がなければ降水量をそのまま述べる(self):
         records = series([0.0] * 31, temp_max=36.0)

@@ -111,11 +111,19 @@ def overview(
     biggest_precip = biggest.total("precip_total") if biggest else None
     share = (biggest_precip or 0.0) / month_precip if month_precip else 0.0
 
-    if biggest is not None and month_precip >= MAJOR_RAIN_MM and share >= 0.5:
+    if biggest is not None and share >= 0.5:
+        # 月降水量の過半が 1 つの雨天期に偏っている。
+        # ただし「集中」は目立つ現象を指す語なので、月降水量そのものが
+        # 少ない月では事実の記述にとどめる。
+        closing = (
+            "に集中しています。"
+            if month_precip >= MAJOR_RAIN_MM
+            else "に降ったものです。"
+        )
         sentences.append(
             f"月降水量 {_fmt(summary.precip_total, 'mm')} のうち "
             f"{_fmt(biggest_precip, 'mm')}（{share * 100:.0f}%）が"
-            f"{biggest.label}に集中しています。"
+            f"{biggest.label}{closing}"
         )
     elif biggest is not None:
         # 雨天期はあるが月降水量の主役ではない。単発の降水日が月内に散っている。

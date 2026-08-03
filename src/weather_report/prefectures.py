@@ -48,6 +48,11 @@ KANTO: tuple[Prefecture, ...] = (
     Prefecture(11, "埼玉県", "埼玉", "saitama", 43, "47626"),
 )
 
+#: 四国地方。関東と同じく、必要になった県から順に足している。
+SHIKOKU: tuple[Prefecture, ...] = (
+    Prefecture(37, "香川県", "香川", "kagawa", 72, "47891"),
+)
+
 #: 九州 7 県。``prec_no`` は気象庁の府県選択ページで使われている番号。
 KYUSHU: tuple[Prefecture, ...] = (
     Prefecture(40, "福岡県", "福岡", "fukuoka", 82, "47807"),
@@ -66,7 +71,7 @@ OKINAWA = Prefecture(47, "沖縄県", "沖縄", "okinawa", 91, "47936")
 KYUSHU_OKINAWA: tuple[Prefecture, ...] = KYUSHU + (OKINAWA,)
 
 #: 定義済みの全県。JIS コード順に並べ、出力ディレクトリが自然な順序になるようにする。
-ALL: tuple[Prefecture, ...] = KANTO + KYUSHU_OKINAWA
+ALL: tuple[Prefecture, ...] = KANTO + SHIKOKU + KYUSHU_OKINAWA
 
 REGIONS: dict[str, tuple[Prefecture, ...]] = {
     "kyushu": KYUSHU,
