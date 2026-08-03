@@ -1,0 +1,87 @@
+{
+  "prefecture": "埼玉県",
+  "prec_no": 43,
+  "_comment": "気象庁の府県地図ページから自動取得した観測地点。kind の s は官署（湿度・天気概況あり）、a はアメダス。対象地点を絞りたい場合はこのファイルから項目を削除してください。",
+  "stations": [
+    {
+      "block_no": "47626",
+      "name": "クマガヤ",
+      "kind": "s"
+    },
+    {
+      "block_no": "47641",
+      "name": "チチブ",
+      "kind": "s"
+    },
+    {
+      "block_no": "1159",
+      "name": "ウラヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1182",
+      "name": "カミヨシダ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0359",
+      "name": "クキ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1069",
+      "name": "コウノス",
+      "kind": "a"
+    },
+    {
+      "block_no": "0364",
+      "name": "コシガヤ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0363",
+      "name": "サイタマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1497",
+      "name": "トキガワ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1070",
+      "name": "トコロザワ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0361",
+      "name": "ドウダイラ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1232",
+      "name": "ハトヤマ",
+      "kind": "a"
+    },
+    {
+      "block_no": "0362",
+      "name": "ハンノウ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1000",
+      "name": "ミツミネ",
+      "kind": "a"
+    },
+    {
+      "block_no": "1009",
+      "name": "ヨリイ",
+      "kind": "a"
+    },
+    {
+      "block_no": "00",
+      "name": "埼玉県全地点",
+      "kind": "a"
+    }
+  ]
+}

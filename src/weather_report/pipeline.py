@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
-from . import aggregate, render, stations as stations_mod
+from . import aggregate, compare, render, render_compare, stations as stations_mod
 from .fetch_jma import fetch_daily_page
 from .models import DailyRecord, Station
 from .parse_jma import parse_daily_page
@@ -93,6 +93,48 @@ def collect_prefecture(
     return aggregate.build(year, month, representative, by_station)
 
 
+def _write_comparison(
+    pref: Prefecture,
+    current: aggregate.PrefectureSummary,
+    compare_with: tuple[int, int],
+    paths: Paths,
+    output_dir: Path,
+    *,
+    refresh: bool = False,
+    max_stations: int | None = None,
+) -> None:
+    """比較対象月を取得して前年同月比レポートを書き出す。
+
+    比較は付加的な出力なので、失敗しても当年のレポートは残す。
+    """
+    prev_year, prev_month = compare_with
+    logger.info("--- %s %d年%d月（比較対象）---", pref.name, prev_year, prev_month)
+    try:
+        previous = collect_prefecture(
+            pref,
+            prev_year,
+            prev_month,
+            paths,
+            refresh=refresh,
+            max_stations=max_stations,
+        )
+    except Exception as exc:
+        logger.error(
+            "%s の比較をスキップします（%d年%d月を取得できませんでした）: %s",
+            pref.name,
+            prev_year,
+            prev_month,
+            exc,
+        )
+        return
+
+    comparison = compare.build(current, previous)
+    markdown_path, csv_path, daily_csv_path = render_compare.write_report(
+        output_dir, pref, comparison
+    )
+    logger.info("比較出力: %s / %s / %s", markdown_path, csv_path, daily_csv_path)
+
+
 def run(
     prefectures: list[Prefecture],
     year: int,
@@ -101,8 +143,14 @@ def run(
     *,
     refresh: bool = False,
     max_stations: int | None = None,
+    compare_with: tuple[int, int] | None = None,
 ) -> list[tuple[Prefecture, aggregate.PrefectureSummary]]:
-    """複数県のレポートを作る。県ごとに Markdown と CSV を書き出す。"""
+    """複数県のレポートを作る。県ごとに Markdown と CSV を書き出す。
+
+    ``compare_with`` に ``(年, 月)`` を渡すと、その月も取得して前年同月比の
+    レポートを追加で書き出す。比較対象の取得に失敗した県は、通常のレポート
+    だけを残して比較を飛ばす。
+    """
     results: list[tuple[Prefecture, aggregate.PrefectureSummary]] = []
     for pref in prefectures:
         logger.info("=== %s %d年%d月 ===", pref.name, year, month)
@@ -116,6 +164,18 @@ def run(
         output_dir = paths.report_dir(pref, year, month)
         markdown_path, csv_path = render.write_report(output_dir, pref, result)
         logger.info("出力: %s / %s", markdown_path, csv_path)
+
+        if compare_with is not None:
+            _write_comparison(
+                pref,
+                result,
+                compare_with,
+                paths,
+                output_dir,
+                refresh=refresh,
+                max_stations=max_stations,
+            )
+
         results.append((pref, result))
 
     if len(results) > 1:
